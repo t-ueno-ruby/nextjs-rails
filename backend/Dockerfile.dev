@@ -18,9 +18,11 @@ COPY Gemfile.lock /app/Gemfile.lock
 # https://github.com/RubyDevInc/tech_mastery
 # https://rubygems.org/gems/rails?locale=ja
 # https://zenn.dev/aldagram_tech/articles/110bc79925d41b
-RUN gem install bundler && \
-    bundle config set --local path /usr/local/bundle \
+ARG APP_BUNDLER_VER="2.5.23"
+RUN gem install bundler -v $APP_BUNDLER_VER && \
     bundle install -j4
+
+COPY . /app
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]

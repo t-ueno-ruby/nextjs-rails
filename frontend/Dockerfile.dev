@@ -1,4 +1,4 @@
-ARG NODE_VER
+ARG NODE_VER=22.12.0
 FROM node:${NODE_VER}-slim
 
 WORKDIR /app
