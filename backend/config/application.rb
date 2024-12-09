@@ -40,5 +40,18 @@ module App
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
+
+    # https://zenn.dev/tmasuyama1114/books/ab51fea5d5f659/viewer/rspec-introduction#rails-generator-%E7%94%9F%E6%88%90%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB
+    config.generators do |g|
+      g.assets false
+      g.helper false
+      g.test_framework :rspec, # ここから5行を追記
+                       fixtures: false, # テストDBにレコードを作るfixtureの作成をスキップ(FactoryBotを使用するため)
+                       view_specs: false, # ビューファイル用のスペックを作成しない
+                       helper_specs: false, # ヘルパーファイル用のスペックを作成しない
+                       routing_specs: false # routes.rb用のスペックファイル作成しない
+      # https://qiita.com/naoki_mochizuki/items/1d3026a32786642fc762#%E5%90%84%E7%A8%AEspec%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%81%AE%E7%94%9F%E6%88%90
+      g.fixture_replacement :factory_bot, dir: "spec/factories"
+    end
   end
 end

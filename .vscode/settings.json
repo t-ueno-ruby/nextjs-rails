@@ -1,0 +1,16 @@
+{
+    // 参考
+    // https://zenn.dev/razokulover/articles/c49ca1cb566ddb
+    // どちらか
+    // https://github.com/Shopify/vscode-ruby-lsp/blob/main/VERSION_MANAGERS.md#mise-formerly-rtx
+    // https://github.com/Shopify/ruby-lsp/issues/2137#issuecomment-2507909263
+    "rubyLsp.rubyVersionManager": {
+        "identifier": "mise",
+        "miseExecutablePath": "/opt/homebrew/bin/mise"
+    },
+    // TODO: フォーマットが動作しない
+    "[ruby]": {
+        "editor.defaultFormatter": "Shopify.ruby-lsp",
+        "editor.formatOnSave": true
+    }
+}

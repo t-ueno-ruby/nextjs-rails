@@ -17,12 +17,10 @@ COPY Gemfile.lock /app/Gemfile.lock
 
 # https://github.com/RubyDevInc/tech_mastery
 # https://rubygems.org/gems/rails?locale=ja
+# https://zenn.dev/aldagram_tech/articles/110bc79925d41b
 RUN gem install bundler && \
-    gem install -N rails -v 8.0.0 && \
-    bundle install
-# RUN gem install -N rails -v 8.0.0 && \
-#     bundle install
-
+    bundle config set --local path /usr/local/bundle \
+    bundle install -j4
 EXPOSE 3000
 
 CMD ["rails", "server", "-b", "0.0.0.0"]
