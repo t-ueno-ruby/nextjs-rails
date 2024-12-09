@@ -24,9 +24,10 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
     "esModuleInterop": true,
-    "types": [
-      "@testing-library/jest-dom"
-    ]
+    // // "esModuleInterop": false,
+    // "types": [
+    //   "@testing-library/jest-dom"
+    // ],
   },
   "include": [
     "src"
