@@ -11,3 +11,13 @@ export const getTodos = async () => {
         throw error
     }
 }
+
+export const createTodo = async (todoData: any) => {
+    try {
+        const response = await axios.post(`${API_BASE_URL}/todos`, todoData)
+        return response.data
+    } catch (error) {
+        console.error('Error while creating todo:', error);
+        throw error
+    }
+}
