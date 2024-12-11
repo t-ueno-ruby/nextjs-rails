@@ -1,34 +1,41 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { getTodos } from "./api";
+import "./App.css";
 
-function App() {
-  const [count, setCount] = useState(0)
+// Todoの型定義
+type Todo = {
+  id: number
+  title: string;
+  description: string;
+  status: string;
+}
+
+const App = () => {
+  // Todoリストの初期値を空の配列に設定
+  const [todos, setTodos] = useState<Todo[]>([])
+
+  useEffect(() => {
+    const fetchTodos = async () => {
+      try {
+        const todosData = await getTodos()
+        setTodos(todosData)
+      } catch (error) {
+        console.error('Error while fetching todos:', error)
+      }
+    }
+
+    fetchTodos()
+  }, [])
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
+    <div className="container">
+      <h1>Todo List</h1>
+      <ul>
+        {todos.map((todo: Todo) => (
+          <li key={todo.id}>{todo.title}</li>
+        ))}
+      </ul>
+    </div >
   )
 }
 
