@@ -1,15 +1,18 @@
 import React, { useState } from "react";
 import { createTodo } from "../api";
-
-const TodoForm = () => {
+import Todo from "../types/Todo";
+const TodoForm = ({ onCreate }: { onCreate: (todo: Todo) => void }) => {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
     try {
-      await createTodo({
+      const newTodo = await createTodo({
         title, description,
       })
+      onCreate(newTodo)
 
       setTitle('')
       setDescription('')

@@ -2,19 +2,14 @@ import { useEffect, useState } from "react";
 import { getTodos } from "./api";
 import "./App.css";
 import TodoForm from "./components/TodoForm";
-
-
-// Todoの型定義
-type Todo = {
-  id: number
-  title: string;
-  description: string;
-  status: string;
-}
+import Todo from "./types/Todo";
 
 const App = () => {
-  // Todoリストの初期値を空の配列に設定
   const [todos, setTodos] = useState<Todo[]>([])
+
+  const handleTodoCreate = (newTodo: Todo) => {
+    setTodos([...todos, newTodo])
+  };
 
   useEffect(() => {
     const fetchTodos = async () => {
@@ -32,7 +27,7 @@ const App = () => {
   return (
     <div className="container">
       <h1>Todo List</h1>
-      <TodoForm />
+      <TodoForm onCreate={handleTodoCreate} />
       <ul>
         {todos.map((todo: Todo) => (
           <li key={todo.id}>{todo.title}</li>
