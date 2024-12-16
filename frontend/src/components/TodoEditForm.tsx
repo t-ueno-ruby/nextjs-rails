@@ -4,7 +4,7 @@ import Todo from '../types/Todo'
 
 type TodoEditFormProps = {
   todo: Todo
-  onEdit: () => void
+  onEdit: (updateTodo: Todo) => void
 }
 
 const TodoEditForm: React.FC<TodoEditFormProps> = ({ todo, onEdit }) => {
@@ -13,13 +13,15 @@ const TodoEditForm: React.FC<TodoEditFormProps> = ({ todo, onEdit }) => {
   const [description, setDescription] = useState(todo.description)
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+
     try {
       const todoData = {
         title,
         description
       }
-      await updateTodo(id, todoData)
-      onEdit()
+      const updatedTodo = await updateTodo(id, todoData)
+      onEdit(updatedTodo)
     } catch (error) {
       console.error(error)
     }
