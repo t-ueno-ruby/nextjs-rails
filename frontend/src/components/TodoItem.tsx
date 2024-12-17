@@ -1,18 +1,14 @@
 import React, { useState } from 'react'
+import { deleteTodo } from "../api";
+import Todo from '../types/Todo'
 import TodoEditForm from './TodoEditForm'
-
-type Todo = {
-  id: number
-  title: string
-  description: string
-  status: number
-}
 
 type TodoItemProps = {
   todo: Todo
+  onDelete: (id: number) => void
 }
 
-const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
+const TodoItem: React.FC<TodoItemProps> = ({ todo, onDelete }) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const handleEditClick = () => {
@@ -23,13 +19,24 @@ const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
     setIsEditing(false)
   }
 
+  const handleDeleteClick = async () => {
+    try {
+      await deleteTodo(todo.id)
+
+      onDelete(todo.id)
+    } catch (error) {
+      console.error(error);
+    }
+  }
+
   return (
     <div>
       {!isEditing ? (
         <div style={{ border: '1px solid', margin: '10px', padding: '5px' }}>
           <h3>{todo.title}</h3>
           <h3>{todo.description}</h3>
-          <button /*style={{ backgroundColor: 'light-grey' }} */ onClick={handleEditClick}>Edit</button>
+          <button onClick={handleEditClick}>Edit</button>
+          <button onClick={handleDeleteClick}>Delete</button>
         </div>
       ) : (
         <TodoEditForm todo={todo} onEdit={handleEditCancel} />

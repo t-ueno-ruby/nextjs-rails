@@ -12,6 +12,14 @@ const App = () => {
     setTodos([...todos, newTodo])
   };
 
+  const handleTodoDelete = async (id: number) => {
+    try {
+      setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== id))
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   useEffect(() => {
     const fetchTodos = async () => {
       try {
@@ -29,7 +37,7 @@ const App = () => {
     <div className="container">
       <h1>Todo List</h1>
       <TodoForm onCreate={handleTodoCreate} />
-      <TodoList todos={todos} />
+      <TodoList todos={todos} onTodoDelete={handleTodoDelete} />
     </div >
   )
 }
